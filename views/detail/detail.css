@@ -1,0 +1,21 @@
+.p-detail .content {
+    margin-top: 45px;
+    background-color: #F6F6EF;
+}
+
+.p-detail .comments {
+    list-style: none;
+    line-height: 1.5em;
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+}
+
+.p-detail .comments li {
+    padding: 0;
+    display: block;
+}
+
+.p-detail .comments li:first-child {
+    border-top: 1px solid #E0E0E0;
+}

@@ -1,0 +1,51 @@
+.c-detail {
+    min-height: 4em;
+    overflow: hidden;
+}
+
+.c-detail header {
+    padding: 10px 15px;
+}
+
+.c-detail header h1 {
+    font-size: 17px;
+    line-height: 1.2em;
+    margin: 0;
+    padding: 0;
+}
+
+.c-detail header .metadata {
+    font-size: 13px;
+    color: #666d74;
+    margin: 0;
+    padding: 0;
+}
+
+.c-detail header h1 a {
+    color: #000;
+    text-decoration: none;
+    display: block;
+}
+
+.c-detail header h1 a .link-text {
+    font-size: 13px;
+    color: #003d80;
+    font-weight: normal;
+}
+
+.c-detail header .metadata a.external-link {
+    color: #666d74;
+    text-decoration: none;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-left: 16px;
+    background: transparent url(./images/external-arrow.png) no-repeat 0 50%;
+    background-image: url(./images/external-arrow.svg), none;
+    background-size: 12px 10px;
+}
+
+.inline-block {
+    display: inline-block;
+}

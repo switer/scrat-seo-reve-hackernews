@@ -44,7 +44,8 @@ var middleware = {
         }
     },
     router: {
-        index: '/index'
+        // index: '/index',
+
     },
     render: {}
 };
@@ -59,10 +60,14 @@ for (var key in middleware) {
 app.use('/co', middleware.combo);
 app.use('/public', middleware.static);
 
-// app.use('/api/*', middleware.proxy);
-
+app.get('/', function (req, res, next) {
+    req.url = '/p/index'
+    next()
+});
 app.use('/p/:page', middleware.engine);
+
 app.use(middleware.router);
+
 app.use('/p/:page', middleware.render);
 app.use(middleware.error);
 

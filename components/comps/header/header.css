@@ -59,11 +59,20 @@
 .c-header .refresher {
     display: inline-block;
     width: 14px;
-    height: 18px;
+    height: 25px;
     background: transparent url(./images/refresh-icon.png) no-repeat;
-    background-image: url(./images/refresh-icon.svg), none;
-    background-size: 14px 18px;
+    background-size: 14px auto;
     vertical-align: middle;
     overflow: hidden;
     text-indent: -999px;
+    background-position: center center;
 }
+
+.c-header .refresher.anim {-webkit-animation: rotate .8s linear infinite;}
+
+@keyframes rotate{
+    0% {-webkit-transform:rotate(0deg);}
+    100% {-webkit-transform:rotate(360deg);}
+}
+
+

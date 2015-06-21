@@ -43,6 +43,10 @@
     vertical-align: middle;
 }
 
+.c-post .comment:hover {
+    background-color: #F6F6EF;
+}
+
 .c-post .number {
     text-align: right;
     width: 3.5ex;

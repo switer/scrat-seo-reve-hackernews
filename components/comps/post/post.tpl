@@ -13,7 +13,7 @@
 			</span>
 		</div>
 	</a>
-	<a href="/p/comments?id={{item.id}}" class="comment">
+	<a href="/p/detail?id={{item.id}}" class="comment">
 		<i></i>
 	</a>
 </div>

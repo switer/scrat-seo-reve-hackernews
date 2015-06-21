@@ -2,11 +2,14 @@
 
 module.exports = Reve.component('c-header', {
 	data: function () {
-		return {}
+		return {
+			animate: false
+		}
 	},
 	ready: function () {
 	},
 	methods: {
-		onRefresh: function () {}
+		onRefresh: function (e) {
+		}
 	}
 })

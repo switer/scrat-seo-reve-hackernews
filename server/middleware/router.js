@@ -3,30 +3,31 @@
 var express = require('express')
 var router = express.Router()
 
-router.get('/', function (req, res) {
-    res.redirect('/inbox');
-});
 
 router.get('/api', function (req, res) {
     res.json({title: 123});
 });
+
 router.get('/p/index', function(req, res, next){
     var postService = require('../service/post');
     res.locals.headerTitle = 'HackerNews'
     res.locals.title = 'Home';
-    postService(function (posts) {
+    postService({
+        loadmore: !!req.query._fetch_more
+    }, function (posts) {
         res.locals.posts = posts
         next()
     })
 });
 
-router.get('/p/comments', function(req, res, next){
-    var commentService = require('../service/comment')
-    var postid;
-    res.locals.headerTitle = 'HackerNews'
-    res.locals.title = 'Comments';
-    commentService(function (comments) {
-        res.locals.comments = comments
+router.get('/p/detail', function(req, res, next){
+    var detailService = require('../service/detail')
+    detailService({
+        loadmore: !!req.query._pagelets,
+        postid: req.query.id
+    }, function (detail) {
+        res.locals.title = res.locals.headerTitle = detail.title
+        res.locals.detail = detail
         next()
     })
 });

@@ -1,7 +1,15 @@
 var request = require('request')
 
-module.exports = function(callback){
-    request('http://node-hnapi.azurewebsites.net/news', function (star, resp, body) {
-        callback(JSON.parse(body))
+var api = 'http://node-hnapi.azurewebsites.net/news'
+module.exports = function(options, callback){
+	options = options || {}
+	if (options.loadmore) api += '2'
+    request(api, function (star, resp, body) {
+    	try {
+    		body = JSON.parse(body)
+    	} catch(e) {
+    		body = []
+    	}
+        callback(body)
     })
 };

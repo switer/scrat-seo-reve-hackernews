@@ -1,0 +1,30 @@
+.c-comment {
+    padding: 15px;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.c-comment p.metadata {
+    color: #666d74;
+    padding: 0;
+    margin: 0;
+}
+
+.c-comment p.metadata .user {
+    float: left;
+    color: #bf223f;
+}
+
+.c-comment p.metadata time {
+    display: block;
+    text-align: right;
+    color: #888;
+}
+
+.c-comment p.metadata time a {
+    color: #888;
+    text-decoration: none;
+}
+
+.c-comment p {
+    margin: 8px 0;
+}

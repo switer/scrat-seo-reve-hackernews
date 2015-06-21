@@ -9,7 +9,7 @@
 		r-on="{click: onRefresh}"
 	>
 		<button>
-			<i class="refresher"></i>
+			<i class="refresher" r-class="{anim: animate}"></i>
 		</button>
 	</a>
 </div>

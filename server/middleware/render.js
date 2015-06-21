@@ -1,5 +1,6 @@
 module.exports = function(options, app, PROD){
     return function(req, res, next){
+        console.log(req.params.page)
         var page = req.params.page.split('/');
         var last = page[page.length - 1];
         if(last.indexOf('.') === -1){
