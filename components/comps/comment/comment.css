@@ -1,6 +1,7 @@
 .c-comment {
     padding: 15px;
     border-bottom: 1px solid #E0E0E0;
+    background-color: #fff;
 }
 
 .c-comment p.metadata {

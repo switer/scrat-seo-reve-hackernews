@@ -1,0 +1,110 @@
+.p-about .content {
+    margin-top: 55px;
+}
+
+.grouped-tableview {
+    margin: 10px 9px 11px;
+    padding: 10px;
+    border: 1px solid #E0E0E0;
+    background-color: #fff;
+    font-size: 13px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.cf:before,
+.cf:after {
+    content: "";
+    display: table;
+}
+
+#y-icon {
+    background-image: url(./icon.svg), none;
+    background-size: 57px 57px;
+    width: 57px;
+    height: 57px;
+    float: left;
+    border-radius: 4px;
+}
+
+#app-desc {
+    margin-left: 67px;
+}
+
+.grouped-tableview p:last-child {
+    margin: 0;
+}
+
+.grouped-tableview + .grouped-tableview {
+    margin-top: 0;
+}
+
+ul.grouped-tableview,
+ol.grouped-tableview {
+    display: block;
+    list-style: none;
+    padding: 0;
+}
+
+.grouped-tableview {
+    margin: 10px 9px 11px;
+    padding: 10px;
+    border: 1px solid #E0E0E0;
+    background-color: #fff;
+    font-size: 13px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+ul.grouped-tableview li:first-child,
+ol.grouped-tableview li:first-child {
+    box-shadow: none;
+}
+
+ul.grouped-tableview-links li,
+ol.grouped-tableview-links li {
+    padding: 0;
+}
+
+ul.grouped-tableview li,
+ol.grouped-tableview li {
+    display: block;
+    border-bottom: 1px solid #E0E0E0;
+    padding: 0px;
+}
+
+ul.grouped-tableview li:first-child,
+ol.grouped-tableview li:first-child {
+    box-shadow: none;
+}
+
+ul.grouped-tableview li:last-child,
+ol.grouped-tableview li:last-child {
+    border-bottom: 0;
+}
+
+ul.grouped-tableview-links li>a,
+ol.grouped-tableview-links li>a {
+    color: #000;
+    font-size: 16px;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    text-decoration: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+ul.grouped-tableview-links li>a:hover,
+ol.grouped-tableview-links li>a:hover {
+    background-color: #F6F6EF;
+}
+
+.p-about .foot-label {
+    margin: 15px 10px;
+    font-size: 13px;
+    line-height: 1.4em;
+    color: #4c566c;
+    text-align: center;
+}

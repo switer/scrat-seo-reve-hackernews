@@ -2,8 +2,8 @@
 {% block body %}
 	{% pagelet $id="main" class="detail-main"%}
 	<div class="p-detail">
-		<div r-component="c-detail-header" r-methods="{onBack: onBack}">
-	    	{% require $id='comps/detail-header' r-on="{click: onRefresh}" %}
+		<div r-component="c-secondary-header" r-methods="{onBack: onBack}">
+	    	{% require $id='comps/secondary-header' r-on="{click: onRefresh}" %}
 		</div>
 		<div class="content">
 			{% require $id='comps/detail' %}

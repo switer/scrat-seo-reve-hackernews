@@ -32,6 +32,11 @@ router.get('/p/detail', function(req, res, next){
     })
 });
 
+router.get('/p/about', function(req, res, next){
+    res.locals.title = res.locals.headerTitle = 'About'
+    next()
+});
+
 module.exports = function (options) {
     router.options = options || {};
     return router;

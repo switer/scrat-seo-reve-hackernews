@@ -36,7 +36,6 @@
         {% pagelet $id="layout" class="layout" %} {# 最外层pagelet #}
             {% block body %}{# 用于继承的block区域 #}{% endblock %}
         {% endpagelet %}
-        {% require $id='progress' %}
     {% endbody %}
     <!--livereload-->
 {% endhtml %}
