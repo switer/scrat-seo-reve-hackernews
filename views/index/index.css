@@ -35,23 +35,34 @@
     overflow: auto;
 }
 
-.posts {
-    margin-top: 45px;
-}
-
 .tableview {
     margin: 0;
     padding: 0;
     list-style: none;
     background-color: #fff;
+    margin-top: 45px;
 }
 
-.tableview li {
+.tableview li, .more{
     padding: 0;
     display: block;
     position: relative;
     border-top: 1px solid #e0e0e0;
 }
+
 .tableview li:first-child {
     border-top: 0;
+}
+
+.more {
+    color: #007aff;
+    cursor: pointer;
+    line-height: 3em;
+    padding: 10px;
+    display: block;
+    text-align: center;
+}
+
+.more:hover {
+    background-color: #F6F6EF;
 }

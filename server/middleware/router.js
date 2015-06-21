@@ -10,45 +10,25 @@ router.get('/', function (req, res) {
 router.get('/api', function (req, res) {
     res.json({title: 123});
 });
-
-router.get('/p/:page', function(req, res, next){
-    var page = req.params.page;
+router.get('/p/index', function(req, res, next){
     var postService = require('../service/post');
-    res.locals.title = '首页';
     res.locals.headerTitle = 'HackerNews'
+    res.locals.title = 'Home';
     postService(function (posts) {
         res.locals.posts = posts
         next()
     })
+});
 
-    // postService(page, function(is404, nav){
-    //     res.locals.page404 = is404;
-    //     res.locals.nav = nav;
-    //     if(is404){
-    //         next();
-    //     } else {
-    //         res.locals.title = page;
-    //         var listService = require('../service/list');
-    //         var detail = req.query.detail;
-    //         listService(page, detail, function(is404, list) {
-    //             res.locals.list = list;
-    //             res.locals.list404 = is404;
-    //             if (!is404 && detail) {
-    //                 var detailService = require('../service/detail');
-    //                 detailService(detail, function (is404, detail) {
-    //                     res.locals.detail404 = is404;
-    //                     if(!is404){
-    //                         res.locals.title = detail.subject + ' - ' + page;
-    //                     }
-    //                     res.locals.detail = detail;
-    //                     next();
-    //                 });
-    //             } else {
-    //                 next();
-    //             }
-    //         });
-    //     }
-    // });
+router.get('/p/comments', function(req, res, next){
+    var commentService = require('../service/comment')
+    var postid;
+    res.locals.headerTitle = 'HackerNews'
+    res.locals.title = 'Comments';
+    commentService(function (comments) {
+        res.locals.comments = comments
+        next()
+    })
 });
 
 module.exports = function (options) {
