@@ -33,16 +33,22 @@
     cursor: pointer;
 }
 
+.c-header-button:hover{
+    background-color: #F6F6EF;
+}
+
 .c-header button {
     pointer-events: none;
-    min-width: 50px;
+    /*min-width: 50px;*/
+    
     height: 30px;
     line-height: 25px;
     font-weight: normal;
     font-size: 15px;
     text-align: center;
     color: #f60;
-    padding: 0 4px;
+    /*padding: 0 4px;*/
+    
     margin: 0;
     text-decoration: none;
     border: 0;

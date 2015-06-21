@@ -1,0 +1,78 @@
+.c-post {
+    position: relative;
+}
+
+.c-post a {
+    font-size: 14px;
+    line-height: 1.3em;
+    color: #000;
+    display: block;
+    padding: 10px 5px;
+    text-decoration: none;
+}
+
+.c-post i {
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    background: transparent url(./images/comments-icon.png) no-repeat;
+    background-image: url(./images/comments-icon.svg), none;
+    background-size: 17px 17px;
+    margin: 15px 0;
+}
+
+.c-post .detail {
+    font-size: 14px;
+    line-height: 1.3em;
+    color: #000;
+    display: block;
+    padding: 10px 5px;
+    text-decoration: none;
+    padding-right: 44px;
+}
+
+.c-post .comment {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+    z-index: 2;
+    width: 44px;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.c-post .number {
+    text-align: right;
+    width: 3.5ex;
+    color: #666d74;
+    position: absolute;
+    left: 5px;
+    top: 10px;
+}
+
+.c-post .story {
+    margin-left: 4ex;
+    padding-left: 5px;
+}
+
+.c-post .story b {
+    font-weight: 600;
+}
+
+.c-post .metadata {
+    display: block;
+    font-size: 12px;
+    color: #666d74;
+    line-height: 1.2em;
+}
+
+.c-post .link-text {
+    color: #003d80;
+    font-weight: normal;
+}
+
+.c-post .inline-block {
+    display: inline-block;
+}

@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -24,7 +25,8 @@ a {
     margin: 1em 0;
 }
 
-.primary-button, .secondary-button {
+.primary-button,
+.secondary-button {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -37,4 +39,17 @@ a {
     color: #666;
     padding: 0.5em 2em;
     font-size: 80%;
+}
+
+body {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    position: relative;
+    word-wrap: break-word;
+    -ms-text-size-adjust: none;
+    overflow-y: scroll;
+    visibility: visible;
 }

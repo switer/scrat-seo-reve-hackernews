@@ -11,7 +11,6 @@
 
 .index-main {
     position: absolute;
-    left: 150px;
     top: 0;
     right: 0;
     height: 100%;
@@ -34,4 +33,25 @@
     right: 0;
     height: 100%;
     overflow: auto;
+}
+
+.posts {
+    margin-top: 45px;
+}
+
+.tableview {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: #fff;
+}
+
+.tableview li {
+    padding: 0;
+    display: block;
+    position: relative;
+    border-top: 1px solid #e0e0e0;
+}
+.tableview li:first-child {
+    border-top: 0;
 }
