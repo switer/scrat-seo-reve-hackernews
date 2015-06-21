@@ -12,7 +12,7 @@ function getDetail(options, callback, times){
     		if (times <=0) {
     			body = {}
     		} else {
-    			return getDetail.apply(null, arguments)
+    			return getDetail(options, callback, times)
     		}
     	}
         callback(body)
