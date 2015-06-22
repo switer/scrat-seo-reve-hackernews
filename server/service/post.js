@@ -14,7 +14,7 @@ function getPosts(options, callback, times){
                 body = []
             } else {
                 times --
-                return getDetail(options, callback, times)
+                return getPosts(options, callback, times)
             }
         }
         callback(body)
