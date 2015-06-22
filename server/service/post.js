@@ -2,7 +2,7 @@ var request = require('request')
 
 var api = 'http://node-hnapi.azurewebsites.net/news'
 function getPosts(options, callback, times){
-    if (times == undefined) times = 5
+    if (times == undefined) times = 20
 
     options = options || {}
     if (options.loadmore) api += '2'

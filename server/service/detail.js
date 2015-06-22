@@ -3,7 +3,7 @@ var request = require('request')
 var api = 'http://node-hnapi-eu.herokuapp.com/item'
 
 function getDetail(options, callback, times){
-	if (times == undefined) times = 5
+	if (times == undefined) times = 20
 	var postid = options.postid
     request(api + '/' + postid, function (star, resp, body) {
     	try {
