@@ -1,7 +1,6 @@
 'use strict';
 
 require('comps/header')
-
 new Reve({
 	el: '.p-index',
 	data: {
@@ -13,9 +12,9 @@ new Reve({
 	},
 	methods: {
 		onLoadMore: function (e) {
-			var vm = this
 			this.$data.loadMore = false
 			this.$update()
+			var vm = this
 			pagelet.load({
 				url: '/p/index?_fetch_more=1',
 				pagelets: ['layout.main.index-posts'],
@@ -28,11 +27,14 @@ new Reve({
 						t.innerText = lastNumber + parseInt(t.innerText)
 					})
 					$con.appendChild(f)
+				},
+				error: function () {
+					vm.$data.loadMore = true
+					vm.$update()
 				}
 			})
 		},
 		onRefresh: function (e) {
-			e.preventDefault()
 			this.$data.refreshing = true
 			this.$update()
 			var vm = this
@@ -44,6 +46,10 @@ new Reve({
 					var $con = vm.$el.querySelector('.tableview')
 					$con.innerHTML = ''
 					$con.appendChild(f)
+					vm.$data.refreshing = false
+					vm.$update()
+				},
+				error: function () {
 					vm.$data.refreshing = false
 					vm.$update()
 				}

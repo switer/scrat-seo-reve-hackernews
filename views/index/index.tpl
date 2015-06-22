@@ -18,7 +18,9 @@
     		More...
     	</a>
 	    {% require $id='./index.css' %}
-	    {% require $id='./index.js' %}
 	</div>
+	{% script %}
+	    __inline('./index.js')
+	{% endscript %}
     {% endpagelet %}
 {% endblock %}

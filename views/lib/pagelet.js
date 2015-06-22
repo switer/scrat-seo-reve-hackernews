@@ -1,4 +1,5 @@
-;(function (global) {
+;
+(function(global) {
     // 注册给全局的函数
     var pagelet = global.pagelet = {};
     // 已加载资源记录，用于去重
@@ -20,9 +21,10 @@
     // 是否支持Html5的PushState
     var supportPushState =
         global.history && global.history.pushState && global.history.replaceState &&
-            // pushState isn't reliable on iOS until 5.
-        !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]\D|WebApps\/.+CFNetwork)/);
+    // pushState isn't reliable on iOS until 5.
+    !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]\D|WebApps\/.+CFNetwork)/);
     // 一个空函数
+
     function noop() {}
 
     /**
@@ -31,24 +33,25 @@
      * @param type{String} 'js' or 'css'
      * @param callback{Function}
      */
+
     function load(url, type, callback) {
         var isScript = type === 'js';
         var isCss = type === 'css';
         var node = document.createElement(isScript ? 'script' : 'link');
         var supportOnload = 'onload' in node;
-        var done = function(err){
+        var done = function(err) {
             clearTimeout(tid);
             clearInterval(intId);
-            if(node){
+            if (node) {
                 node.onload = node.onreadystatechange = noop;
                 if (isScript && head && node.parentNode) {
                     head.removeChild(node);
                 }
                 node = null;
             }
-            callback('err');
+            callback(err);
         };
-        var tid = setTimeout(function () {
+        var tid = setTimeout(function() {
             done('timeout');
         }, TIMEOUT);
         var intId;
@@ -62,12 +65,12 @@
             }
             node.href = url;
         }
-        node.onload = node.onreadystatechange = function () {
+        node.onload = node.onreadystatechange = function() {
             if (node && (!node.readyState || /loaded|complete/.test(node.readyState))) {
                 done();
             }
         };
-        node.onerror = function (e) {
+        node.onerror = function(e) {
             e = (e || {}).error || new Error('load resource timeout');
             e.message = 'Error loading [' + url + ']: ' + e.message;
             done(e);
@@ -75,7 +78,7 @@
         head.appendChild(node);
         if (isCss) {
             if (isOldWebKit || !supportOnload) {
-                intId = setInterval(function () {
+                intId = setInterval(function() {
                     if (node.sheet) {
                         done();
                     }
@@ -89,6 +92,7 @@
      * @param obj{*}
      * @param type{String}
      */
+
     function is(obj, type) {
         return Object.prototype.toString.call(obj) === '[Object ' + type + ']';
     }
@@ -99,9 +103,10 @@
      * @param collect{Array}
      * @param type{String}
      */
+
     function addResource(result, collect, type) {
         if (collect && collect.length) {
-            collect = collect.filter(function (uri) {
+            collect = collect.filter(function(uri) {
                 var has = loaded[uri] === true;
                 loaded[uri] = true;
                 return !has;
@@ -109,8 +114,8 @@
             if (collect.length) {
                 if (combo) {
                     var comboUrl = '';
-                    collect.forEach(function(uri){
-                        if(comboUrl.length + comboPattern.length + uri.length > maxUrlLength){
+                    collect.forEach(function(uri) {
+                        if (comboUrl.length + comboPattern.length + uri.length > maxUrlLength) {
                             result.push({
                                 uri: comboPattern.replace('%s', comboUrl.substring(1)),
                                 type: type
@@ -125,7 +130,7 @@
                         type: type
                     });
                 } else {
-                    collect.forEach(function (uri) {
+                    collect.forEach(function(uri) {
                         result.push({
                             uri: uri,
                             type: type
@@ -140,6 +145,7 @@
      * 执行页面脚本
      * @param code{String}
      */
+
     function exec(code) {
         var node = document.createElement('script');
         node.appendChild(document.createTextNode(code));
@@ -149,6 +155,7 @@
     /**
      * 数组元素非空过滤函数
      */
+
     function filter(item) {
         return !!item;
     }
@@ -157,8 +164,9 @@
      * 取消正在加载中的ajax请求
      * @param xhr{XMLHttpRequest}
      */
+
     function abortXHR(xhr) {
-        if ( xhr && xhr.readyState < 4) {
+        if (xhr && xhr.readyState < 4) {
             xhr.onreadystatechange = noop;
             xhr.abort();
         }
@@ -169,18 +177,19 @@
      * 深度复制对象
      * @param obj{*}
      */
-    function clone(obj){
-        if(typeof obj === 'object'){
+
+    function clone(obj) {
+        if (typeof obj === 'object') {
             var copy;
-            if(obj instanceof Array){
+            if (obj instanceof Array) {
                 copy = [];
-                obj.forEach(function(item, index){
+                obj.forEach(function(item, index) {
                     copy[index] = clone(item);
                 });
             } else {
                 copy = {};
-                for(var key in obj){
-                    if(obj.hasOwnProperty(key)){
+                for (var key in obj) {
+                    if (obj.hasOwnProperty(key)) {
                         copy[key] = clone(obj[key]);
                     }
                 }
@@ -197,18 +206,19 @@
      * @param pathname{String}
      * @param params{Object}
      */
-    function match(pattern, pathname, params){
+
+    function match(pattern, pathname, params) {
         var keys = [];
         var root = normalize('/').replace(/\/$/, '');
-        if(pathname.indexOf(root) === 0){
+        if (pathname.indexOf(root) === 0) {
             pathname = pathname.substring(root.length);
         }
-        if(typeof pattern === 'string'){
-            pattern = pattern.replace(/:(\w+)|[\.\\\+\*\?\[\^\]\$\(\){}=!<>\|:\/]/g, function (_, key) {
-                if(key){
+        if (typeof pattern === 'string') {
+            pattern = pattern.replace(/:(\w+)|[\.\\\+\*\?\[\^\]\$\(\){}=!<>\|:\/]/g, function(_, key) {
+                if (key) {
                     keys.push(key);
                     return '([\\w.\\-\\s]+)';
-                } else if(_ === '*'){
+                } else if (_ === '*') {
                     return '.*?';
                 } else {
                     return '\\' + _;
@@ -221,8 +231,8 @@
             return false;
         }
         params = params || {};
-        match.forEach(function(m, i){
-            params[keys[i-1] || i] = m;
+        match.forEach(function(m, i) {
+            params[keys[i - 1] || i] = m;
         });
         return true;
     }
@@ -232,13 +242,16 @@
      * @param options{Object}
      * @param event{Event}
      */
-    function route(options, event){
+
+    function route(options, event) {
         var moveOn = true;
-        var next = function(){ moveOn = true; };
+        var next = function() {
+            moveOn = true;
+        };
         var ctx = {};
-        for(var i = 0, len = routers.length; i < len && moveOn; i++){
+        for (var i = 0, len = routers.length; i < len && moveOn; i++) {
             var r = routers[i];
-            if(match(r.reg, options.url, ctx)){
+            if (match(r.reg, options.url, ctx)) {
                 moveOn = false;
                 r.callback(ctx, options, event, next);
             }
@@ -250,7 +263,8 @@
      * 格式化url
      * @param url{String}
      */
-    function normalize(url){
+
+    function normalize(url) {
         anchor.href = url;
         return anchor.href;
     }
@@ -260,7 +274,8 @@
      * @param from{String}
      * @param to{String}
      */
-    function getPagelets(from, to){
+
+    function getPagelets(from, to) {
         from = normalize(from);
         to = normalize(to);
         return historyMap[from + MAP_CONCATOR + to] || historyMap[to + MAP_CONCATOR + from];
@@ -272,7 +287,8 @@
      * @param to{String}
      * @param pagelets{Array}
      */
-    function setPagelets(from, to, pagelets){
+
+    function setPagelets(from, to, pagelets) {
         from = normalize(from);
         to = normalize(to);
         historyMap[from + MAP_CONCATOR + to] = pagelets;
@@ -320,7 +336,7 @@
      * @param type{String}
      * @param callback{Function}
      */
-    pagelet.on = function(type, callback){
+    pagelet.on = function(type, callback) {
         var fns = listeners[type] || [];
         fns.push(callback);
         listeners[type] = fns;
@@ -331,10 +347,10 @@
      * @param type{String}
      * @param callback{Function}
      */
-    pagelet.off = function(type, callback){
+    pagelet.off = function(type, callback) {
         var fns = listeners[type];
-        if(fns){
-            listeners[type] = fns.filter(function(fn){
+        if (fns) {
+            listeners[type] = fns.filter(function(fn) {
                 return fn !== callback;
             });
         }
@@ -345,10 +361,10 @@
      * @param type{String}
      * @param data{*}
      */
-    pagelet.emit = function(type, data){
+    pagelet.emit = function(type, data) {
         var fns = listeners[type];
-        if(fns && fns.length){
-            fns.forEach(function(cb){
+        if (fns && fns.length) {
+            fns.forEach(function(cb) {
                 cb(data);
             });
         }
@@ -360,11 +376,11 @@
      * @param cbp{String} combo请求格式
      * @param used{Array} 当前页面已加载过的资源
      */
-    pagelet.init = function (cb, cbp, used) {
-        combo = !!cb;
+    pagelet.init = function(cb, cbp, used) {
+        combo = !! cb;
         comboPattern = cbp || DEFAULT_COMBO_PATTERN;
         if (used && used.length) {
-            used.forEach(function (uri) {
+            used.forEach(function(uri) {
                 loaded[uri] = true;
             });
         }
@@ -374,7 +390,7 @@
      * 设置加载超时时间
      * @param time {Number}
      */
-    pagelet.timeout = function(time){
+    pagelet.timeout = function(time) {
         TIMEOUT = time >> 0;
     };
 
@@ -382,7 +398,7 @@
      * 加载pagelet
      * @param options{Object}
      */
-    pagelet.load = function (options) {
+    pagelet.load = function(options) {
         var url = options.url,
             pagelets = options.pagelets,
             onComplete = options.complete || noop,
@@ -390,21 +406,36 @@
             onError = options.error || noop,
             onProcess = options.progress || noop;
         if (pagelets && pagelets.length) {
-            pagelet.emit(pagelet.EVENT_BEFORE_LOAD, { options: options });
-            var callback = function(err, data, done){
+            pagelet.emit(pagelet.EVENT_BEFORE_LOAD, {
+                options: options
+            });
+            var callback = function(err, data, done) {
                 clearTimeout(xhrTimer);
                 callback = noop;
-                if(err){
-                    pagelet.emit(pagelet.EVENT_LOAD_ERROR, { options: options, error: err });
+                if (err) {
+                    pagelet.emit(pagelet.EVENT_LOAD_ERROR, {
+                        options: options,
+                        error: err
+                    });
                     onError(err);
                 } else {
-                    pagelet.emit(pagelet.EVENT_BEFORE_INSERT_HTML, { options: options, data: data });
-                    if(onSuccess(data, done) !== false){
+                    pagelet.emit(pagelet.EVENT_BEFORE_INSERT_HTML, {
+                        options: options,
+                        data: data
+                    });
+                    if (onSuccess(data, done) !== false) {
                         done();
                     }
-                    pagelet.emit(pagelet.EVENT_AFTER_INSERT_HTML, { options: options, data: data });
+                    pagelet.emit(pagelet.EVENT_AFTER_INSERT_HTML, {
+                        options: options,
+                        data: data
+                    });
                 }
-                pagelet.emit(pagelet.EVENT_LOAD_COMPLETED, { options: options, error: err, data: data });
+                pagelet.emit(pagelet.EVENT_LOAD_COMPLETED, {
+                    options: options,
+                    error: err,
+                    data: data
+                });
                 onComplete(err, data, done);
             };
             if (is(pagelets, 'String')) {
@@ -412,12 +443,15 @@
             }
             abortXHR(xhr);
             xhr = new global.XMLHttpRequest();
-            xhr.onprogress = function(evt){
-                var data = { options: options, event: evt };
+            xhr.onprogress = function(evt) {
+                var data = {
+                    options: options,
+                    event: evt
+                };
                 pagelet.emit(pagelet.EVENT_LOAD_PROGRESS, data);
                 onProcess(data);
             };
-            xhr.onreadystatechange = function () {
+            xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4) {
                     xhr.onreadystatechange = noop;
                     var result, error = null;
@@ -434,7 +468,7 @@
                             var res = [];
                             addResource(res, result.js, 'js');
                             addResource(res, result.css, 'css');
-                            var _done = function(){
+                            var _done = function() {
                                 pagelet.emit(pagelet.EVENT_BEFORE_EXEC_SCRIPTS, result.script);
                                 if (result.script && result.script.length) {
                                     var left = '!function(){';
@@ -446,16 +480,18 @@
                                 _done = noop;
                                 pagelet.emit(pagelet.EVENT_AFTER_EXEC_SCRIPTS, result.script);
                             };
-                            var done = function () { _done(); };
+                            var done = function() {
+                                _done();
+                            };
                             if (res && res.length) {
                                 var len = res.length;
-                                res.forEach(function (r) {
-                                    load(r.uri, r.type, function (err) {
+                                res.forEach(function(r) {
+                                    load(r.uri, r.type, function(err) {
                                         len--;
                                         if (len === 0) {
                                             callback(error, result, done);
                                         }
-                                        error = err;
+                                        error = error || err;
                                     });
                                 });
                             } else {
@@ -469,13 +505,13 @@
                 }
             };
             url += url.indexOf('?') === -1 ? '?' : '&';
-            url += '_pagelets=' + pagelets.join(',');   //必须加上个query，猜猜为啥？
+            url += '_pagelets=' + pagelets.join(','); //必须加上个query，猜猜为啥？
             xhr.open('GET', url, true);
             xhr.setRequestHeader('Accept', 'application/json');
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             xhr.setRequestHeader('X-Pagelets', pagelets.join(','));
             xhr.send();
-            xhrTimer = setTimeout(function(){
+            xhrTimer = setTimeout(function() {
                 callback('timeout');
             }, options.timeout || TIMEOUT);
         } else {
@@ -488,8 +524,8 @@
      * @param options{Object}
      * @return {Function}
      */
-    pagelet.pushState = function(options){
-        if(!state){
+    pagelet.pushState = function(options) {
+        if (!state) {
             state = {
                 url: global.location.href,
                 title: document.title
@@ -499,7 +535,7 @@
         setPagelets(state.url, options.url, options.pagelets);
         var fn = options.replace ? 'replaceState' : 'pushState';
         global.history[fn](null, "", options.url);
-        return function(title){
+        return function(title) {
             state = {
                 url: options.url,
                 title: title
@@ -516,39 +552,48 @@
      * pagelet跳转
      * @param options{Object}
      */
-    pagelet.go = function (options) {
+    pagelet.go = function(options) {
         var pagelets = options.pagelets;
         //url, pagelets, callback, progress
         if (supportPushState && pagelets) {
             pagelet.emit(pagelet.EVENT_BEFORE_GO, options);
             var opt = clone(options);
-            opt.error = function(err){
-                pagelet.emit(pagelet.EVENT_GO_ERROR, { options: options, error: err });
-                if(typeof options.error === 'function'){
+            opt.error = function(err) {
+                pagelet.emit(pagelet.EVENT_GO_ERROR, {
+                    options: options,
+                    error: err
+                });
+                if (typeof options.error === 'function') {
                     options.error(err);
                 }
             };
-            opt.success = function(data, done){
-                pagelet.emit(pagelet.EVENT_GO_LOADED, {options: options, data: data});
-                if(data.title){
+            opt.success = function(data, done) {
+                pagelet.emit(pagelet.EVENT_GO_LOADED, {
+                    options: options,
+                    data: data
+                });
+                if (data.title) {
                     document.title = data.title;
                 } else {
                     data.title = document.title;
                 }
                 push(data.title);
-                if(typeof options.success === 'function'){
+                if (typeof options.success === 'function') {
                     var ret = options.success(data, done);
-                    pagelet.emit(pagelet.EVENT_AFTER_GO, {options: options, data: data});
+                    pagelet.emit(pagelet.EVENT_AFTER_GO, {
+                        options: options,
+                        data: data
+                    });
                     return ret;
                 }
             };
-            opt.complete = function(err, data, done){
+            opt.complete = function(err, data, done) {
                 pagelet.emit(pagelet.EVENT_GO_COMPLETED, options);
-                if(typeof options.complete === 'function'){
+                if (typeof options.complete === 'function') {
                     options.complete(err, data, done);
                 }
             };
-            if(!state){
+            if (!state) {
                 state = {
                     url: global.location.href,
                     title: document.title
@@ -567,7 +612,7 @@
      * @param pattern{String|RegExp}
      * @param callback{Function}
      */
-    pagelet.router = function(pattern, callback){
+    pagelet.router = function(pattern, callback) {
         routers.push({
             reg: pattern,
             callback: callback
@@ -579,36 +624,39 @@
      * @param defaultPagelet{String|Array} 默认的pagelet id
      * @param eventType {String} 拦截事件，默认是click
      */
-    pagelet.autoload = function(defaultPagelet, eventType){
-        if(supportPushState){
-            if(typeof defaultPagelet === 'string'){
-                defaultPagelet = [ defaultPagelet ];
+    pagelet.autoload = function(defaultPagelet, eventType) {
+        if (supportPushState) {
+            if (typeof defaultPagelet === 'string') {
+                defaultPagelet = [defaultPagelet];
             }
             eventType = eventType || 'click';
-            global.addEventListener('popstate', function (e) {
+            global.addEventListener('popstate', function(e) {
                 if (e.state) {
                     var pagelets = defaultPagelet;
-                    if(state){
+                    if (state) {
                         var p = getPagelets(state.url, e.state.url);
-                        if(p){
+                        if (p) {
                             pagelets = p;
                         } else {
                             setPagelets(state.url, e.state.url, pagelets);
                         }
                     }
                     state = e.state;
-                    if(pagelets){
+                    if (pagelets) {
                         var opt = {};
                         opt.url = state.url;
                         opt.pagelets = pagelets;
                         opt.isBack = true;
-                        opt.error = function(err){
-                            pagelet.emit(pagelet.EVENT_BACK_ERROR, { options: opt, error: err});
+                        opt.error = function(err) {
+                            pagelet.emit(pagelet.EVENT_BACK_ERROR, {
+                                options: opt,
+                                error: err
+                            });
                             location.replace(opt.url);
                         };
-                        if(!route(opt, e)){
-                            opt.success = function(data){
-                                if(data.title){
+                        if (!route(opt, e)) {
+                            opt.success = function(data) {
+                                if (data.title) {
                                     document.title = data.title;
                                 }
                                 var html = data.html;
@@ -631,9 +679,9 @@
                     }
                 }
             }, false);
-            document.documentElement.addEventListener(eventType, function (e) {
+            document.documentElement.addEventListener(eventType, function(e) {
                 var target = e.target;
-                while(target && target.tagName && target.tagName.toLowerCase() !== 'a'){
+                while (target && target.tagName && target.tagName.toLowerCase() !== 'a') {
                     target = target.parentNode;
                 }
                 if (target) {
@@ -655,26 +703,26 @@
                         opt.url = href;
                         opt.pagelets = pagelets;
                         opt.replace = historyReplace || mode === 'prepend' || mode === 'append';
-                        opt.error = function(){
+                        opt.error = function() {
                             location.replace(href);
                         };
-                        if(!route(opt, e)){
-                            opt.success = function(data){
+                        if (!route(opt, e)) {
+                            opt.success = function(data) {
                                 var html = data.html;
                                 // TODO
                                 for (var key in html) {
                                     if (html.hasOwnProperty(key)) {
                                         var dom = document.querySelector('[data-pagelet="' + key + '"]');
                                         if (dom) {
-                                            if(mode === 'prepend' || mode === 'append'){
+                                            if (mode === 'prepend' || mode === 'append') {
                                                 var div = document.createElement('div');
                                                 div.innerHTML = html[key];
                                                 var fragment = document.createDocumentFragment();
                                                 var children = div.childNodes;
-                                                while(children.length){
+                                                while (children.length) {
                                                     fragment.appendChild(children[0]);
                                                 }
-                                                if(mode === 'append' || dom.childNodes.length === 0){
+                                                if (mode === 'append' || dom.childNodes.length === 0) {
                                                     dom.appendChild(fragment);
                                                 } else {
                                                     dom.insertBefore(fragment, dom.childNodes[0]);

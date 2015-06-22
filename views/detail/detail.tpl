@@ -2,7 +2,7 @@
 {% block body %}
 	{% pagelet $id="main" class="detail-main"%}
 	<div class="p-detail">
-		<div r-component="c-secondary-header" r-methods="{onBack: onBack}">
+		<div r-component="c-secondary-header">
 	    	{% require $id='comps/secondary-header' r-on="{click: onRefresh}" %}
 		</div>
 		<div class="content">
@@ -16,7 +16,9 @@
 			{% endfor %}
 		{% endpagelet %}
 	    {% require $id='./detail.css' %}
-	    {% require $id='./detail.js' %}
 	</div>
+	{% script %}
+		__inline('./detail.js')
+	{% endscript %}
     {% endpagelet %}
 {% endblock %}

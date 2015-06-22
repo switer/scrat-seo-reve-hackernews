@@ -34,6 +34,13 @@
     {% endhead %}
     {% body %}
         {% pagelet $id="layout" class="layout" %} {# 最外层pagelet #}
+            {% require $id="comps/progress" %}
+            {% script %}
+                var Progress = require('comps/progress')
+                new Progress({
+                    el: '.layout>.progress'
+                })
+            {% endscript %}
             {% block body %}{# 用于继承的block区域 #}{% endblock %}
         {% endpagelet %}
     {% endbody %}

@@ -1,7 +1,5 @@
-{% require $id="./header.js" %}
-
 <div class="c-header">
-	<a href="/p/about" class="c-header-button" style="left: 0">
+	<a href="/p/about" class="c-header-button" style="left: 0" data-pagelets="layout.main">
 		<button>About</button>
 	</a>
 	<h1>{{ headerTitle }}</h1>
@@ -13,3 +11,4 @@
 		</button>
 	</a>
 </div>
+{% require $id="./header.js" %}

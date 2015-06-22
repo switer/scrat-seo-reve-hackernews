@@ -13,7 +13,7 @@
 			</span>
 		</div>
 	</a>
-	<a href="/p/detail?id={{item.id}}" class="comment">
+	<a href="/p/detail?id={{item.id}}" class="comment" data-pagelets="layout.main">
 		<i></i>
 	</a>
 </div>
