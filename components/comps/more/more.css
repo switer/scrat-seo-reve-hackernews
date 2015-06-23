@@ -8,5 +8,6 @@
 }
 
 .c-more:hover {
-    background-color: #F6F6EF;
+    background-color: #f0f0f0;
+    cursor: pointer;
 }
