@@ -1,20 +1,19 @@
 'use strict';
 
 require('comps/header')
+require('comps/more')
+
 new Reve({
 	el: '.p-index',
 	data: {
-		loadMore: true,
 		refreshing: false
-	},
-	ready: function () {
-		console.log(this.$refs)
 	},
 	methods: {
 		onLoadMore: function (e) {
-			this.$data.loadMore = false
-			this.$update()
+			var $more = this.$refs.more
 			var vm = this
+
+			$more.hide()
 			pagelet.load({
 				url: '/p/index?_fetch_more=1',
 				pagelets: ['layout.main.index-posts'],
@@ -27,10 +26,10 @@ new Reve({
 						t.innerText = lastNumber + parseInt(t.innerText)
 					})
 					$con.appendChild(f)
+					$more.show()
 				},
 				error: function () {
-					vm.$data.loadMore = true
-					vm.$update()
+					$more.hide()
 				}
 			})
 		},

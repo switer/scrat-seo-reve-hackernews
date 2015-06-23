@@ -54,16 +54,3 @@
 .tableview li:first-child {
     border-top: 0;
 }
-
-.more {
-    color: #007aff;
-    cursor: pointer;
-    line-height: 3em;
-    padding: 10px;
-    display: block;
-    text-align: center;
-}
-
-.more:hover {
-    background-color: #F6F6EF;
-}

@@ -2,6 +2,7 @@
 {% block body %}
 	{% pagelet $id="main" class="index-main"%}
 		{% require $id='./index.css' %}
+
 		<div class="p-index">
 			<div r-component="c-header" r-data="{animate: refreshing}" r-methods="{onRefresh: onRefresh}">
 		    	{% require $id='comps/header' %}
@@ -14,11 +15,9 @@
 				{% endfor %}
 	    	{% endpagelet %}
 			{% ATF %}
-	    	<a class="more" href="javascript:;" 
-	    		r-on="{click: onLoadMore}" 
-	    		r-style="{visibility: loadMore ? 'visible' : 'hidden'}">
-	    		More...
-	    	</a>
+			<div r-component="c-more" r-methods="{onLoadMore: onLoadMore}" r-ref="more">
+	    		{% require $id='comps/more' %}
+			</div>
 		</div>
 		{% script %}
 		    __inline('./index.js')
