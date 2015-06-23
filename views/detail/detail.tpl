@@ -4,7 +4,7 @@
 	    {% require $id='./detail.css' %}
 		<div class="p-detail">
 			<div r-component="c-secondary-header">
-		    	{% require $id='comps/secondary-header' r-on="{click: onRefresh}" %}
+		    	{% require $id='comps/secondary-header' %}
 			</div>
 			<div class="content">
 				{% require $id='comps/detail' %}

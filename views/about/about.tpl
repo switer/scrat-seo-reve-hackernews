@@ -4,7 +4,7 @@
 	    {% require $id='./about.css' %}
 		<div class="p-about">
 			<div r-component="c-secondary-header" r-methods="{onBack: onBack}">
-		    	{% require $id='comps/secondary-header' r-on="{click: onRefresh}" %}
+		    	{% require $id='comps/secondary-header' %}
 			</div>
 			<section class="content">
 				<div class="grouped-tableview cf">
